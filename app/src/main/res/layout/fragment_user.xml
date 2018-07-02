@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="10dp">
+
+    <ImageView
+        android:src="@mipmap/ic_launcher_round"
+        android:id="@+id/imageViewUser"
+        android:layout_gravity="center"
+        android:layout_width="150dp"
+        android:layout_height="150dp" />
+    <TextView
+        android:id="@+id/textViewUser"
+        android:textSize="25dp"
+        android:text="User: nguyenvana"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/textViewTen"
+        android:textSize="25dp"
+        android:text="Họ Tên: Nguyễn Văn A"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/textViewPhong"
+        android:textSize="25dp"
+        android:text="Phòng làm việc: Kế Toán"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/textViewChucVu"
+        android:textSize="25dp"
+        android:text="Chức vụ: Kế Toán Viên"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/textViewCoQuan"
+        android:textSize="25dp"
+        android:text="Cơ Quan: TTCNPM ĐHCT"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

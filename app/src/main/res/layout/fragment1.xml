@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_margin="10sp"
+    android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/textViewDonViTiepNhan"
+        android:layout_weight="1.5"
+        android:gravity="center_vertical"
+        android:textSize="@dimen/text_medium"
+        android:textColor="#0d0c0c"
+        android:paddingLeft="10sp"
+        android:paddingRight="10sp"
+        android:background="@drawable/background"
+        android:layout_margin="2sp"
+        android:text="Đơn vị tiếp nhận"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/textViewNguoiGui"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="2sp"
+        android:layout_weight="0.8"
+        android:background="@drawable/background"
+        android:gravity="center_vertical"
+        android:paddingLeft="10sp"
+        android:paddingRight="10sp"
+        android:text="Người gửi"
+        android:textColor="#0d0c0c"
+        android:textSize="@dimen/text_medium" />
+
+    <TextView
+        android:id="@+id/textViewNgayBH"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.6"
+        android:layout_margin="2sp"
+        android:paddingLeft="10sp"
+        android:paddingRight="10sp"
+        android:background="@drawable/background"
+        android:textColor="#0d0c0c"
+        android:gravity="center_vertical"
+        android:text="Ngày ban hành"
+        android:textSize="@dimen/text_medium" />
+
+    <TextView
+        android:id="@+id/textViewHieuLuc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="2sp"
+        android:layout_weight="0.6"
+        android:background="@drawable/background"
+        android:gravity="center_vertical"
+        android:paddingLeft="10sp"
+        android:paddingRight="10sp"
+        android:text="Hiệu lực"
+        android:textColor="#ed1111"
+        android:textSize="@dimen/text_medium" />
+
+    <TextView
+        android:id="@+id/textViewHanXuLyToanVanBan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textColor="#ed1111"
+        android:paddingLeft="10sp"
+        android:paddingRight="10sp"
+        android:layout_margin="2sp"
+        android:background="@drawable/background"
+        android:gravity="center_vertical"
+        android:text="Hạn xử lý toàn văn bản"
+        android:textSize="@dimen/text_medium" />
+
+    <TextView
+        android:id="@+id/textViewYKienButPhe"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.5"
+        android:layout_margin="2sp"
+        android:paddingLeft="10sp"
+        android:paddingRight="10sp"
+        android:background="@drawable/background"
+        android:gravity="center_vertical"
+        android:text="Ý kiến bút phê"
+        android:textColor="#0d0c0c"
+        android:textSize="@dimen/text_medium" />
+
+    <TextView
+        android:id="@+id/textViewSoHieuGocTrichYeu"
+        android:layout_weight="3"
+        android:gravity="center_vertical"
+        android:textSize="@dimen/text_medium"
+        android:textColor="#0d0c0c"
+        android:paddingLeft="10sp"
+        android:paddingRight="10sp"
+        android:layout_margin="2sp"
+        android:background="@drawable/background"
+        android:text="Nội dung trích yếu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/textViewTapTinDinhKem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2sp"
+        android:layout_weight="1"
+        android:background="@drawable/background"
+        android:gravity="center_vertical"
+        android:paddingLeft="10sp"
+        android:paddingRight="10sp"
+        android:text="Tập tin đính kèm"
+        android:textColor="#0d0c0c"
+        android:textSize="@dimen/text_medium" />
+</LinearLayout>

@@ -1,0 +1,117 @@
+{
+  "project_info": {
+    "project_number": "750603437217",
+    "firebase_url": "https://realtime-c1033.firebaseio.com",
+    "project_id": "realtime-c1033",
+    "storage_bucket": "realtime-c1033.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:750603437217:android:c6737f1015e0a478",
+        "android_client_info": {
+          "package_name": "com.example.holoc.firebaserealtime"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "750603437217-a5bedsecg0sbr97g0kscvckgkhqs08vj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAS61d33Ar2OXA8uC9iRgReQc67FF4wXBY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:750603437217:android:8e29cb3254ade73e",
+        "android_client_info": {
+          "package_name": "com.example.holoc.uber"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "750603437217-e32sb6arug4vq0eb03f77e38ci3kej6m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.holoc.uber",
+            "certificate_hash": "ee60026c222c7e59eb647dc1cd7717148db34563"
+          }
+        },
+        {
+          "client_id": "750603437217-a5bedsecg0sbr97g0kscvckgkhqs08vj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAS61d33Ar2OXA8uC9iRgReQc67FF4wXBY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "750603437217-a5bedsecg0sbr97g0kscvckgkhqs08vj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:750603437217:android:27763f8b93efbe65",
+        "android_client_info": {
+          "package_name": "com.holoc284_v001.tracuuvanban"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "750603437217-a5bedsecg0sbr97g0kscvckgkhqs08vj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAS61d33Ar2OXA8uC9iRgReQc67FF4wXBY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

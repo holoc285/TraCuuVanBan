@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="#2627abc2"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textViewSoVanBanLuanChuyen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:layout_margin="5dp"
+        android:textColor="#e4ef1616"
+        android:layout_marginLeft="5dp"
+        android:text="Số văn bản"
+        android:textSize="@dimen/text_x_lare" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/editTextNoiDungLuanChuyen"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5sp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@android:color/white"
+            android:hint="Nhập vào nội dung luân chuyển"
+            android:textSize="@dimen/text_medium" />
+
+        <EditText
+            android:id="@+id/editTextButPheLuanChuyen"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5sp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@android:color/white"
+            android:textSize="@dimen/text_medium"
+            android:hint="Nhập vào bút phê luân chuyển" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textViewUserNhanLuanChuyen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="5dp"
+        android:text="Chọn nơi nhận văn bản"
+        android:textColor="#0015ff"
+        android:textSize="@dimen/text_lare"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="5dp"
+        android:padding="5dp"
+        android:text="Hạn xử lý bước tiếp theo"
+        android:textSize="@dimen/text_medium" />
+
+    <EditText
+        android:id="@+id/editTextHanXuLyTiepTheo"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@android:color/white"
+        android:hint="yyyy-MM-dd"
+        android:textSize="@dimen/text_medium" />
+
+    <Button
+        android:id="@+id/buttonHoanThanhLuanChuyen"
+        android:layout_width="match_parent"
+        android:layout_margin="10dp"
+        android:background="@drawable/custom_button"
+        android:textSize="@dimen/text_medium"
+        android:layout_height="wrap_content"
+        android:text="Hoàn thành luân chuyển" />
+</LinearLayout>

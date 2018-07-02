@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:id="@+id/myRelativeLayout"
+    android:layout_height="match_parent"
+    tools:context=".activity.MainActivity"
+    android:orientation="horizontal">
+
+    <android.support.v4.widget.DrawerLayout
+        android:id="@+id/drawerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:weightSum="10">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolBarC"
+                app:title="Tra cứu văn bản"
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                android:background="#4976d0"
+                app:titleTextColor="#ffff">
+            </android.support.v7.widget.Toolbar>
+
+            <FrameLayout
+                android:id="@+id/frameContent"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="10">
+            </FrameLayout>
+
+            <android.support.design.widget.BottomNavigationView
+                android:id="@+id/myBTN"
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                android:layout_alignParentBottom="true"
+                android:background="#e0e0d2"
+                app:itemIconTint="@drawable/nav_item_color_state"
+                app:itemTextColor="@drawable/nav_item_color_state"
+                app:menu="@menu/bottom_nav_main" />
+        </LinearLayout>
+
+        <!-- Thanh NavigationView-->
+        <android.support.design.widget.NavigationView
+            android:id="@+id/navigationViewTTKH"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#4976d0"
+            android:layout_gravity="start">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:orientation="vertical">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imageViewUserNav"
+                    android:layout_width="150px"
+                    android:layout_margin="5sp"
+                    android:src="@drawable/cusc"
+                    android:layout_height="150px" />
+                <TextView
+                    android:id="@+id/textViewUserNav"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5sp"
+                    android:textColor="@android:color/white"
+                    android:layout_margin="5sp"
+                    android:background="@drawable/animuser"
+                    android:text="Họ và Tên"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:id="@+id/textViewDiaChiNav"
+                    android:layout_width="match_parent"
+                    android:padding="5sp"
+                    android:layout_margin="5sp"
+                    android:textColor="@android:color/white"
+                    android:background="@drawable/animuser"
+                    android:layout_height="wrap_content"
+                    android:text="Địa chỉ"
+                    android:textSize="10dp" />
+
+                <TextView
+                    android:id="@+id/textViewPhoneNav"
+                    android:layout_width="match_parent"
+                    android:padding="5sp"
+                    android:layout_margin="5sp"
+                    android:textColor="@android:color/white"
+                    android:background="@drawable/animuser"
+                    android:layout_height="wrap_content"
+                    android:text="Số điện thoại"
+                    android:textSize="10dp" />
+                <Button
+                    android:id="@+id/buttonExit"
+                    android:text="Đăng xuất"
+                    android:textStyle="bold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+        </android.support.design.widget.NavigationView>
+    </android.support.v4.widget.DrawerLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:src="@drawable/ic_center_focus_weak_black_24dp" />
+</LinearLayout>
