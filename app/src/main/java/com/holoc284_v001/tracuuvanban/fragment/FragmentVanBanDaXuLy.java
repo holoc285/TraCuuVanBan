@@ -23,9 +23,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.holoc284_v001.tracuuvanban.R;
 import com.holoc284_v001.tracuuvanban.activity.DanhSachVBActivity;
 import com.holoc284_v001.tracuuvanban.activity.MainActivity;
-import com.holoc284_v001.tracuuvanban.R;
 import com.holoc284_v001.tracuuvanban.adapter.TraCuuAdapter;
 import com.holoc284_v001.tracuuvanban.model.TraCuu;
 import com.holoc284_v001.tracuuvanban.utils.Path;
@@ -54,14 +54,18 @@ public class FragmentVanBanDaXuLy extends Fragment {
     boolean limitData = false;
     ProgressDialog progressDialog;
 
+
+
+
     int pos;
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_tracuu,container,false);
 
         progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("Vui lòng đợi ...");
+        progressDialog.setCanceledOnTouchOutside(true);
         progressDialog.show();
 
         arrayListTraCuu = new ArrayList();
@@ -80,6 +84,7 @@ public class FragmentVanBanDaXuLy extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putInt("ViTri", position);
                 bundle.putSerializable("VanBan", arrayListTraCuu);
+                //bundle.putSerializable("dsUserXL", dsUserDaXL);
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
@@ -97,7 +102,7 @@ public class FragmentVanBanDaXuLy extends Fragment {
             }
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                if (firstVisibleItem + visibleItemCount == totalItemCount && totalItemCount !=0 && isLoading == false &&limitData == false && arrayListTraCuu.size() >=5){
+                if (firstVisibleItem + visibleItemCount == totalItemCount && totalItemCount !=0 && isLoading == false &&limitData == false && arrayListTraCuu.size() >=7){
                     isLoading = true;
                     ThreadData threadData = new ThreadData();
                     threadData.start();
@@ -169,6 +174,7 @@ public class FragmentVanBanDaXuLy extends Fragment {
                             JSONObject jsonObject = jsonArray.getJSONObject(i);
 
                             int vanBanDenId = jsonObject.getInt("vbden_id");
+                            //getDsUserDaXuLyVB(vanBanDenId);
 
                             String soDen = jsonObject.getString("vbden_soden");
                             //Xy ly so den
@@ -202,7 +208,9 @@ public class FragmentVanBanDaXuLy extends Fragment {
                     limitData = true;
                     listView.removeFooterView(footerview);
                     //Toast.makeText(getActivity(), "Đã hết dữ liệu!", Toast.LENGTH_SHORT).show();
-                    dialogThongBao();
+                    if (arrayListTraCuu.size()> 0){
+                        dialogThongBao();
+                    }
                     adapterTraCuu.notifyDataSetChanged();
                 }
 
@@ -219,6 +227,9 @@ public class FragmentVanBanDaXuLy extends Fragment {
         });
         requestQueue.add(stringRequest);
     }
+
+
+
 
     private void dialogThongBao(){
         AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.activity);

@@ -16,10 +16,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.holoc284_v001.tracuuvanban.R;
 import com.holoc284_v001.tracuuvanban.activity.DanhSachUserActivity;
 import com.holoc284_v001.tracuuvanban.activity.DanhSachVBActivity;
 import com.holoc284_v001.tracuuvanban.activity.MainActivity;
-import com.holoc284_v001.tracuuvanban.R;
 import com.holoc284_v001.tracuuvanban.model.NguoiNhan;
 import com.holoc284_v001.tracuuvanban.model.TraCuu;
 import com.holoc284_v001.tracuuvanban.model.User;
@@ -75,6 +75,7 @@ public class FragmentChuyenXuLy extends Fragment {
         activity = (DanhSachVBActivity) getActivity();
         position = activity.getPosition();
         a = activity.getArray();
+
         listUser = activity.getUsers();
 
 
@@ -112,7 +113,7 @@ public class FragmentChuyenXuLy extends Fragment {
             @Override
             public void onClick(View view) {
                 if (res==null | edtNoiDungLuanChuyen.length()==0 | edtButPheLuanChuyen.length()==0){
-                    Toast.makeText(getActivity(), "Vui lòng nhập đủ thông tin luân chuyển!", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getActivity(), "Vui lòng nhập đủ thông tin luân chuyển!", Toast.LENGTH_SHORT).show();
                 }else if (activity.isConnected()==false){
                     activity.checkConnection();
                 }
@@ -126,17 +127,20 @@ public class FragmentChuyenXuLy extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode==1000 && data!=null){
             res = data.getStringExtra("jsonUser").toString();
-
+            //Log.e("test", data.getSerializableExtra("json").toString());
             if (res.equals("No")){
                 txtUserNhanLuanChuyen.setText("Chọn nơi nhận văn bản");
             }else {
-                txtUserNhanLuanChuyen.setText("Đã chọn nơi nhận văn bản");
+                txtUserNhanLuanChuyen.setText("Người nhận:\n");
+                txtUserNhanLuanChuyen.append(data.getSerializableExtra("json").toString());
             }
             try {
                 jsUser = new JSONArray(res);
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+            //Log.e("aaa",jsUser.toString());
             OnClickLuanChuyen();
         }
     }
@@ -155,11 +159,15 @@ public class FragmentChuyenXuLy extends Fragment {
                             @Override
                             public void run() {
                                 postChuyenXuLy();
-                                getActivity().finish();
+
                             }
                         });
                         Toast.makeText(getActivity(), "Luân chuyển thành công", Toast.LENGTH_SHORT).show();
                         thread.start();
+                        Intent intent = new Intent(getActivity(), MainActivity.class);
+                        intent.putExtra("result", "OK");
+                        getActivity().setResult(1000,intent);
+                        getActivity().finish();
                     }else {
                         activity.checkConnection();
                     }
@@ -313,12 +321,14 @@ public class FragmentChuyenXuLy extends Fragment {
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("vbdenId",""+a.get(position).getVanBanDenId());
+            jsonObject.put("vbdenLcId",""+a.get(position).getVbden_lc_id());
             jsonObject.put("noiDungLuanChuyen",edtNoiDungLuanChuyen.getText().toString());
             jsonObject.put("butPheLuanChuyen",edtButPheLuanChuyen.getText().toString());
-            jsonObject.put("userId", MainActivity.userName);
+            jsonObject.put("userId", listUser.get(0).getUserId());
             jsonObject.put("hanXuLy",edtHanXyLy.getText().toString());
             jsonObject.put("nguoiChuyen",listUser.get(0).getName());
             jsonObject.put("dsNguoiNhan", jsUser);
+            jsonObject.put("donViUser", a.get(position).getIdCoQuan()+"");
             //jsonObject.put("statusHoanThanh", daXL);
             //Toast.makeText(getActivity(), jsonObject.toString(), Toast.LENGTH_LONG).show();
             Log.e("aaaa", jsonObject.toString());

@@ -23,9 +23,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.holoc284_v001.tracuuvanban.R;
 import com.holoc284_v001.tracuuvanban.activity.DanhSachVBActivity;
 import com.holoc284_v001.tracuuvanban.activity.MainActivity;
-import com.holoc284_v001.tracuuvanban.R;
 import com.holoc284_v001.tracuuvanban.adapter.TraCuuAdapter;
 import com.holoc284_v001.tracuuvanban.model.TraCuu;
 import com.holoc284_v001.tracuuvanban.utils.Path;
@@ -63,6 +63,7 @@ public class FragmentTraCuu extends Fragment {
         txtThongBao = view.findViewById(R.id.textViewThongBaoNull);
         progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("Vui lòng đợi ...");
+        progressDialog.setCanceledOnTouchOutside(true);
         progressDialog.show();
         //progressDialog.setCanceledOnTouchOutside(false);
 
@@ -118,7 +119,7 @@ public class FragmentTraCuu extends Fragment {
 
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                if (firstVisibleItem + visibleItemCount == totalItemCount && totalItemCount !=0 && isLoading == false &&limitData == false && arrayListTraCuu.size() >=5){
+                if (firstVisibleItem + visibleItemCount == totalItemCount && totalItemCount !=0 && isLoading == false &&limitData == false && arrayListTraCuu.size() >=7){
                     isLoading = true;
                     ThreadData threadData = new ThreadData();
                     threadData.start();
@@ -206,9 +207,11 @@ public class FragmentTraCuu extends Fragment {
                             //boolean hoanThanh = jsonObject.getBoolean("vbden_hoanthanh");
 
                             String noiDungTrichYeu = jsonObject.getString("vbden_trichyeu");
+                            int vbden_lc_id = jsonObject.getInt("vbden_lc_id");
+                            //int idCoQuan = jsonObject.getInt("organizationid");
 
 //                        String donViTiepNhan = jsonObject.getString("cunght_organizationten");
-                            arrayListTraCuu.add(new TraCuu(vanBanDenId,soDen,soHieuGoc+" "+noiDungTrichYeu,coQuanBanHanh,Day(ngayBanHanh),Day(ngayHieuLuc),nguoiGui,loaiVanBan,hanXlToanVanBan,yKienButPhe,false));
+                            arrayListTraCuu.add(new TraCuu(vanBanDenId,soDen,soHieuGoc+" "+noiDungTrichYeu,coQuanBanHanh,Day(ngayBanHanh),Day(ngayHieuLuc),nguoiGui,loaiVanBan,hanXlToanVanBan,yKienButPhe,vbden_lc_id,false, 10170));
                             //Toast.makeText(getActivity(), arrayListTraCuu.get(1).getNoiDungTrichYeu(), Toast.LENGTH_SHORT).show();
                         }
                         adapterTraCuu.notifyDataSetChanged();
@@ -222,7 +225,9 @@ public class FragmentTraCuu extends Fragment {
                     limitData = true;
                     listView.removeFooterView(footerview);
                     //Toast.makeText(getActivity(), "Đã hết dữ liệu!", Toast.LENGTH_SHORT).show();
-                    dialogThongBao();
+                    if (arrayListTraCuu.size()> 0){
+                        dialogThongBao();
+                    }
                     adapterTraCuu.notifyDataSetChanged();
                 }
                 if (arrayListTraCuu.size()==0){
