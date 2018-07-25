@@ -42,6 +42,7 @@ public class DanhSachUserActivity extends AppCompatActivity implements Connectiv
     CheckBox checkBoxAll;
     Button btnOk;
     Button btnHuy;
+    ArrayList<String> dsUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +60,7 @@ public class DanhSachUserActivity extends AppCompatActivity implements Connectiv
         //SET DEFAULT UNCHECKED
         nhanArrayList = getNguoiNhan(false);
         danhSachNhanDaChon = new ArrayList<NguoiNhan>();
+
 
        // Toast.makeText(getApplicationContext(), listUser.get(0).getName(), Toast.LENGTH_SHORT).show();
         NguoiNhanAdapter adapter = new NguoiNhanAdapter(this,nhanArrayList);
@@ -158,6 +160,7 @@ public class DanhSachUserActivity extends AppCompatActivity implements Connectiv
                     }
                 }
                 jsonArrayDsUserIdDaChon = new JSONArray();
+                dsUser = new ArrayList<String>();
 
                 for (int i=0;i<danhSachNhanDaChon.size();i++){
                     JSONObject js = new JSONObject();
@@ -172,6 +175,7 @@ public class DanhSachUserActivity extends AppCompatActivity implements Connectiv
                         e.printStackTrace();
                     }
                     jsonArrayDsUserIdDaChon.put(js);
+                    dsUser.add(danhSachNhanDaChon.get(i).getEmail());
 
                 }
 
@@ -181,6 +185,8 @@ public class DanhSachUserActivity extends AppCompatActivity implements Connectiv
                     Intent intent = new Intent(getApplicationContext(), DanhSachVBActivity.class);
 
                     intent.putExtra("jsonUser",jsonArrayDsUserIdDaChon.toString());
+                    intent.putExtra("json", dsUser);
+                    //intent.putExtra("dsUser", dsUser);
                     setResult(1000,intent);
                     finish();
                 }
@@ -195,7 +201,7 @@ public class DanhSachUserActivity extends AppCompatActivity implements Connectiv
         SQLiteQueryUser sqLiteQueryUser = SQLiteQueryUser.getINSTANCE(this);
 
         listUser = sqLiteQueryUser.getAllUser();
-        for (int i=0; i< listUser.size();i++){
+        for (int i=1; i< listUser.size();i++){
             NguoiNhan nguoiNhan = new NguoiNhan();
             nguoiNhan.setSeleted(isSelect);
             nguoiNhan.setEmail(listUser.get(i).getName());

@@ -17,6 +17,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.holoc284_v001.tracuuvanban.activity.MainActivity;
 import com.holoc284_v001.tracuuvanban.adapter.NguoiNhanAdapter;
 import com.holoc284_v001.tracuuvanban.activity.DanhSachVBActivity;
 import com.holoc284_v001.tracuuvanban.R;
@@ -188,12 +189,13 @@ public class FragmentXuLyVanBan extends Fragment {
         try {
             jsonObject.put("vbdenId",""+a.get(position).getVanBanDenId());
             jsonObject.put("noiDungGopY",edtNdGopY.getText().toString());
-            jsonObject.put("userId","10158");
-            jsonObject.put("nguoiGui",a.get(position).getNguoiGui());
+            jsonObject.put("userId", MainActivity.userId);
+            jsonObject.put("nguoiGui",MainActivity.userName);
             jsonObject.put("donVi",a.get(position).getCoQuan());
             boolean daXL = true;
             jsonObject.put("statusHoanThanh", daXL);
 
+            Log.e("Gopy", jsonObject.toString());
 
         } catch (JSONException e) {
             e.printStackTrace();

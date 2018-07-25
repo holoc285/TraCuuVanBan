@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
     private MenuItem menuItem;
     private TextView txtUser, txtName, txtAddress;
     public static String userName;
+    public static String nameUser;
     public static int userId;
     public static Context context;
     public static Activity activity;
@@ -74,7 +75,10 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
     private String tongvbAdmin    =   null;
     private String daxulyAdmin    =   null;
     private String chuaxulyAdmin  =   null;
-
+    private FragmentTraCuu fragmentTraCuu;
+    private FragmentVanBanDaXuLy fragmentVanBanDaXuLy;
+    private FragmentBieuDo fragmentBieuDo;
+    private FragmentBieuDoTong fragmentBieuDoTong;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -83,14 +87,19 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
 
         if (isConnected()){
             checkConnection();
+            fragmentTraCuu = new FragmentTraCuu();
+            fragmentVanBanDaXuLy = new FragmentVanBanDaXuLy();
+            fragmentBieuDo = new FragmentBieuDo();
+            fragmentBieuDoTong = new FragmentBieuDoTong();
+            fragment = fragmentTraCuu;
             context = getApplicationContext();
             activity = this;
             getInfoUser();
-            getTK();
-            getTkTong();
+            //getTK();
+            //getTkTong();
 
             //Toast.makeText(this, Path.LOCALHOST, Toast.LENGTH_SHORT).show();
-            loadFragment(new FragmentTraCuu());
+            loadFragment(fragment);
             drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
             navigationView = (NavigationView) findViewById(R.id.navigationViewTTKH);
             toolbar = (Toolbar) findViewById(R.id.toolBarC);
@@ -108,8 +117,8 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
 
 
             if (users.get(0).getUserName().equals("admin")){
-                getTK();
-                getTkTong();
+                //getTK();
+                //getTkTong();
                 bottomNavigationView.inflateMenu(R.menu.bottom_nav_main_admin);
 
                 bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -119,16 +128,17 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
                         switch (item.getItemId()) {
                             case R.id.danhSachVB:
                                 checkConnection();
-                                getTK();
-                                getTkTong();
-                                fragment = new FragmentTraCuu();
+                                //getTK();
+                                //getTkTong();
+                                fragment = fragmentTraCuu;
                                 if (menuItem.isVisible()!= true) {
                                     menuItem.setVisible(true);
                                 }
                                 break;
                             case R.id.traCuu:
                                 checkConnection();
-                                fragment = new FragmentVanBanDaXuLy();
+                                //fragment = new FragmentVanBanDaXuLy();
+                                fragment = fragmentVanBanDaXuLy;
                                 if (menuItem.isVisible()!= true) {
                                     menuItem.setVisible(true);
                                 }
@@ -136,13 +146,15 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
                             case R.id.bieuDoUser:
                                 checkConnection();
                                 getTK();
-                                fragment = new FragmentBieuDo();
+                                //fragment = new FragmentBieuDo();
+                                fragment = fragmentBieuDo;
                                 menuItem.setVisible(false);
                                 break;
                             case R.id.bieuDoTong:
                                 checkConnection();
                                 getTkTong();
-                                fragment = new FragmentBieuDoTong();
+                                fragment = fragmentBieuDoTong;
+                                //fragment = new FragmentBieuDoTong();
                                 menuItem.setVisible(false);
                                 break;
                             case R.id.info:
@@ -156,8 +168,8 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
                 });
             }else {
                 //User
-                getTK();
-                getTkTong();
+                //getTK();
+                //getTkTong();
                 bottomNavigationView.inflateMenu(R.menu.bottom_nav_main);
                 bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
                     @Override
@@ -165,17 +177,19 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
 
                         switch (item.getItemId()) {
                             case R.id.danhSachVB:
-                                getTK();
-                                getTkTong();
+                                //getTK();
+                                //getTkTong();
                                 checkConnection();
-                                fragment = new FragmentTraCuu();
+                                //fragment = new FragmentTraCuu();
+                                fragment = fragmentTraCuu;
                                 if (menuItem.isVisible()!= true) {
                                     menuItem.setVisible(true);
                                 }
                                 break;
                             case R.id.traCuu:
                                 checkConnection();
-                                fragment = new FragmentVanBanDaXuLy();
+                                //fragment = new FragmentVanBanDaXuLy();
+                                fragment = fragmentVanBanDaXuLy;
                                 if (menuItem.isVisible()!= true) {
                                     menuItem.setVisible(true);
                                 }
@@ -183,7 +197,7 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
                             case R.id.bieuDo:
                                 checkConnection();
                                 getTK();
-                                fragment = new FragmentBieuDo();
+                                fragment = fragmentBieuDo;
                                 menuItem.setVisible(false);
                                 break;
                             case R.id.info:
@@ -252,6 +266,8 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
         txtName.setText(users.get(0).getName());
         txtAddress.setText(users.get(0).getEmail());
 
+        nameUser = users.get(0).getName();
+
         btnExit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -292,13 +308,7 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
         return true;
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode==1000 && data!=null){
-            loadFragment(new FragmentTraCuu());
-        }
-    }
+
 
     public boolean loadFragment(Fragment fragment) {
         //switching fragment
@@ -335,7 +345,7 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
     public void getTK(){
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Vui lòng chờ ...");
-        progressDialog.setCanceledOnTouchOutside(true);
+        //progressDialog.setCanceledOnTouchOutside(true);
         progressDialog.show();
         String url = "http://"+Path.LOCALHOST+"/api/tracuuvanban/thongkeUser/"+users.get(0).getUserId();
         RequestQueue requestQueue = Volley.newRequestQueue(MainActivity.this);
@@ -351,6 +361,7 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+                    progressDialog.dismiss();
                 }
             }
         }, new Response.ErrorListener() {
@@ -359,16 +370,14 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
             }
         });
 
-        if (tongvbAdmin!=null && daxulyAdmin!=null && chuaxulyAdmin!=null){
-            progressDialog.dismiss();
-        }
+
         requestQueue.add(stringRequest);
     }
 
     public void getTkTong(){
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Vui lòng chờ ...");
-        progressDialog.setCanceledOnTouchOutside(true);
+        //progressDialog.setCanceledOnTouchOutside(true);
         progressDialog.show();
 
         String url = "http://"+Path.LOCALHOST+"/api/tracuuvanban/thongke";
@@ -386,6 +395,7 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+                    progressDialog.dismiss();
                 }
 
             }
@@ -394,9 +404,9 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
             public void onErrorResponse(VolleyError error) {
             }
         });
-        if (tongvbAdmin!=null && daxulyAdmin!=null && chuaxulyAdmin!=null){
-            progressDialog.dismiss();
-        }
+//        if (tongvbAdmin!=null && daxulyAdmin!=null && chuaxulyAdmin!=null){
+//            progressDialog.dismiss();
+//        }
         requestQueue.add(stringRequest);
     }
 

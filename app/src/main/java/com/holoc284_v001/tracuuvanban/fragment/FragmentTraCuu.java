@@ -4,11 +4,15 @@ import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,39 +48,34 @@ import java.util.Date;
 public class FragmentTraCuu extends Fragment {
     public static ArrayList<TraCuu> arrayListTraCuu;
     public static TraCuuAdapter adapterTraCuu;
-    ListView listView;
-    TextView txtThongBao;
+    private ListView listView;
+    private TextView txtThongBao;
+    private int page = 1;
+    private View footerview;
+    private boolean isLoading = false;
+    private mHandler mhandler;
+    private boolean limitData = false;
+    private ProgressDialog progressDialog;
+    private int pos;
+    private SwipeRefreshLayout refreshLayout;
 
-    int page = 1;
-    View footerview;
-    boolean isLoading = false;
-    mHandler mhandler;
-    boolean limitData = false;
-    ProgressDialog progressDialog;
-
-    int pos;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_tracuu,container,false);
 
         txtThongBao = view.findViewById(R.id.textViewThongBaoNull);
+        refreshLayout = view.findViewById(R.id.mySwipeRefresh);
         progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("Vui lòng đợi ...");
-        progressDialog.setCanceledOnTouchOutside(true);
         progressDialog.show();
-        //progressDialog.setCanceledOnTouchOutside(false);
-
+        //progressDialog.setCanceledOnTouchOutside(false );
         arrayListTraCuu = new ArrayList();
         listView = view.findViewById(R.id.listViewTraCuu);
         adapterTraCuu = new TraCuuAdapter(getActivity(),arrayListTraCuu);
         //setListAdapter(adapterTraCuu);
         listView.setAdapter(adapterTraCuu);
         getDanhSachVanBan(page);
-
-
-
-        //Toast.makeText(getActivity(), MainActivity.userId + "", Toast.LENGTH_SHORT).show();
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -91,26 +90,14 @@ public class FragmentTraCuu extends Fragment {
 
                 //fragmentThongTinVanBan.setArguments(bundle);
                 intent.putExtras(bundle);
-                startActivity(intent);
+                startActivityForResult(intent, 2000);
             }
         });
 
-        //traCuus.addAll(arrayListTraCuu);
-
-        //LoadMore
-        //LayoutInflater inflater = (LayoutInflater) view.getSystemUiVisibility(Context.LAYOUT_INFLATER_SERVICE);
-       // footerview = inflater.inflate(R.layout.progressbar,null);
         LayoutInflater inf = getActivity().getLayoutInflater();
         footerview = inf.inflate(
                 R.layout.progressbar, null);
-
-        //listView.addFooterView(footerview);
-
-
-
         mhandler = new mHandler();
-
-
         listView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView absListView, int i) {
@@ -126,11 +113,46 @@ public class FragmentTraCuu extends Fragment {
                 }
             }
         });
-
         txtThongBao.setVisibility(View.INVISIBLE);
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new CountDownTimer(3000, 1000){
 
+                    @Override
+                    public void onTick(long l) {
+
+                    }
+
+                    @Override
+                    public void onFinish() {
+//                        arrayListTraCuu.clear();
+//                        getDanhSachVanBan(page);
+//                        adapterTraCuu.notifyDataSetChanged();
+                        MainActivity activity = (MainActivity) getActivity();
+                        activity.loadFragment(new FragmentTraCuu());
+                        refreshLayout.setRefreshing(false);
+
+                    }
+                }.start();
+            }
+        });
+        refreshLayout.setColorSchemeColors(Color.GREEN,Color.CYAN, Color.RED, Color.BLUE);
         return view;
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode==2000 && data != null){
+            String e =  data.getStringExtra("result").toString();
+            //Toast.makeText(getActivity(), "OKKE" + e, Toast.LENGTH_SHORT).show();
+            Log.e("ddd","eeeee");
+            MainActivity activity = (MainActivity) getActivity();
+            activity.loadFragment(new FragmentTraCuu());
+        }
+    }
+
 
     public static void filterL(String charText) {
         ArrayList<TraCuu> filteredList = new ArrayList<>();
@@ -208,37 +230,36 @@ public class FragmentTraCuu extends Fragment {
 
                             String noiDungTrichYeu = jsonObject.getString("vbden_trichyeu");
                             int vbden_lc_id = jsonObject.getInt("vbden_lc_id");
-                            //int idCoQuan = jsonObject.getInt("organizationid");
-
-//                        String donViTiepNhan = jsonObject.getString("cunght_organizationten");
-                            arrayListTraCuu.add(new TraCuu(vanBanDenId,soDen,soHieuGoc+" "+noiDungTrichYeu,coQuanBanHanh,Day(ngayBanHanh),Day(ngayHieuLuc),nguoiGui,loaiVanBan,hanXlToanVanBan,yKienButPhe,vbden_lc_id,false, 10170));
-                            //Toast.makeText(getActivity(), arrayListTraCuu.get(1).getNoiDungTrichYeu(), Toast.LENGTH_SHORT).show();
+                            int idCoQuan = jsonObject.getInt("organizationid");
+                            arrayListTraCuu.add(new TraCuu(vanBanDenId,soDen,soHieuGoc+" "+noiDungTrichYeu,coQuanBanHanh,Day(ngayBanHanh),Day(ngayHieuLuc),nguoiGui,loaiVanBan,hanXlToanVanBan,yKienButPhe,vbden_lc_id,false, idCoQuan));
                         }
                         adapterTraCuu.notifyDataSetChanged();
+                        progressDialog.cancel();
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    progressDialog.dismiss();
+
 
                 }else {
-                    progressDialog.dismiss();
+
                     limitData = true;
                     listView.removeFooterView(footerview);
-                    //Toast.makeText(getActivity(), "Đã hết dữ liệu!", Toast.LENGTH_SHORT).show();
                     if (arrayListTraCuu.size()> 0){
                         dialogThongBao();
                     }
                     adapterTraCuu.notifyDataSetChanged();
+                    progressDialog.cancel();
                 }
                 if (arrayListTraCuu.size()==0){
                     txtThongBao.setVisibility(View.VISIBLE);
+                    progressDialog.cancel();
                 }
 
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                progressDialog.dismiss();
+                progressDialog.cancel();
             }
         });
         requestQueue.add(stringRequest);

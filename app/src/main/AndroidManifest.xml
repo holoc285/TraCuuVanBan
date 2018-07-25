@@ -39,11 +39,6 @@
             <!--</intent-filter>-->
         </activity>
 
-        <service android:name=".adapter.NotificationMessage">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
 
         <activity android:name=".activity.DanhSachVBActivity" />
         <activity android:name=".activity.DanhSachUserActivity"></activity>

@@ -4,10 +4,13 @@ import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,22 +45,20 @@ import java.util.Date;
  * Created by holoc on 5/22/2018.
  */
 public class FragmentVanBanDaXuLy extends Fragment {
+
     public static ArrayList<TraCuu> arrayListTraCuu;
     public static TraCuuAdapter adapterTraCuu;
-    ListView listView;
-    TextView txtThongBao;
+    private ListView listView;
+    private TextView txtThongBao;
+    private int page = 1;
+    private View footerview;
+    private boolean isLoading = false;
+    private mHandler mhandler;
+    private boolean limitData = false;
+    private ProgressDialog progressDialog;
+    private int pos;
+    private SwipeRefreshLayout refreshLayout;
 
-    int page = 1;
-    View footerview;
-    boolean isLoading = false;
-    mHandler mhandler;
-    boolean limitData = false;
-    ProgressDialog progressDialog;
-
-
-
-
-    int pos;
     @Nullable
     @Override
     public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -65,11 +66,11 @@ public class FragmentVanBanDaXuLy extends Fragment {
 
         progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("Vui lòng đợi ...");
-        progressDialog.setCanceledOnTouchOutside(true);
+        //progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
-
         arrayListTraCuu = new ArrayList();
         listView = view.findViewById(R.id.listViewTraCuu);
+        refreshLayout = view.findViewById(R.id.mySwipeRefresh);
         adapterTraCuu = new TraCuuAdapter(getActivity(),arrayListTraCuu);
 
         listView.setAdapter(adapterTraCuu);
@@ -113,6 +114,30 @@ public class FragmentVanBanDaXuLy extends Fragment {
         //Set Thong Bao ListView Null Hay Khong
         txtThongBao = view.findViewById(R.id.textViewThongBaoNull);
         txtThongBao.setVisibility(View.INVISIBLE);
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new CountDownTimer(3000, 1000){
+
+                    @Override
+                    public void onTick(long l) {
+
+                    }
+
+                    @Override
+                    public void onFinish() {
+//                        arrayListTraCuu.clear();
+//                        getDanhSachVanBanDen(page);
+//                        adapterTraCuu.notifyDataSetChanged();
+                        MainActivity activity = (MainActivity) getActivity();
+                        activity.loadFragment(new FragmentVanBanDaXuLy());
+                        refreshLayout.setRefreshing(false);
+
+                    }
+                }.start();
+            }
+        });
+        refreshLayout.setColorSchemeColors(Color.GREEN,Color.CYAN, Color.RED, Color.BLUE);
         return view;
     }
 
@@ -198,13 +223,13 @@ public class FragmentVanBanDaXuLy extends Fragment {
                             //Toast.makeText(getActivity(), arrayListTraCuu.get(1).getNoiDungTrichYeu(), Toast.LENGTH_SHORT).show();
                         }
                         adapterTraCuu.notifyDataSetChanged();
+                        progressDialog.cancel();
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    progressDialog.dismiss();
+
 
                 }else {
-                    progressDialog.dismiss();
                     limitData = true;
                     listView.removeFooterView(footerview);
                     //Toast.makeText(getActivity(), "Đã hết dữ liệu!", Toast.LENGTH_SHORT).show();
@@ -212,17 +237,19 @@ public class FragmentVanBanDaXuLy extends Fragment {
                         dialogThongBao();
                     }
                     adapterTraCuu.notifyDataSetChanged();
+                    progressDialog.cancel();
                 }
 
                 if (arrayListTraCuu.size()==0){
                     txtThongBao.setVisibility(View.VISIBLE);
+                    progressDialog.cancel();
                 }
 
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                progressDialog.dismiss();
+                progressDialog.cancel();
             }
         });
         requestQueue.add(stringRequest);

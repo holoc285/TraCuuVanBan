@@ -123,48 +123,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
             else{
                 domain = domainCH.getString("domainDonVi","");
-                //loginPresenter = new LoginPresenter(this, this, domain.trim());
-                //new LoginModel(this);
                     pg.show();
-//                try {
-//                    pg.show();
-//                    //Thread.sleep(2000);
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
-                //new LoginPresenter(this, this, domain.trim()).checkLogin(userName, passwordSecure);
-                //loginPresenter.noLogin();
                 loginPresenter.checkLogin(userName, passwordSecure);
                 pg.dismiss();
             }
         }
-//        if (domainCH.getString("domainDonVi","").isEmpty()){
-//            Toast.makeText(this, "Bạn cần phải cấu hình domain trước khi đăng nhập!", Toast.LENGTH_SHORT).show();
-//        }
-
     }
 
-    private boolean checkNetworkStatus(){
-        boolean status = false;
-        ConnectivityManager conMgr = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
-
-        if ( conMgr.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED
-                || conMgr.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED ) {
-
-            // notify user you are online
-            status = true;
-            Toast.makeText(this, "Online", Toast.LENGTH_SHORT).show();
-
-        }
-        else if ( conMgr.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.DISCONNECTED
-                || conMgr.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.DISCONNECTED) {
-
-            // notify user you are not online
-            status = false;
-            Toast.makeText(this, "Online", Toast.LENGTH_SHORT).show();
-        }
-        return status;
-    }
 
     public static String StringToSHA1(String textToHash) {
         MessageDigest digest = null;
@@ -202,6 +167,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 if (editText.getText().toString().trim().isEmpty()){
                     Toast.makeText(LoginActivity.this, "Vui lòng nhập vào địa chỉ domain cấu hình!", Toast.LENGTH_SHORT).show();
                 }else {
+
                     String domainUpdate = editText.getText().toString().trim();
                     SharedPreferences.Editor editor = domainCH.edit();
                     editor.putString("domainDonVi", domainUpdate);

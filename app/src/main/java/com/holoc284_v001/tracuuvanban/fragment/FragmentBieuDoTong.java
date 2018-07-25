@@ -24,7 +24,7 @@ import java.util.ArrayList;
 
 public class FragmentBieuDoTong extends Fragment {
 
-    ArrayList<Entry> yvalues;
+    private ArrayList<Entry> yvalues;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

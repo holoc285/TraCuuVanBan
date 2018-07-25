@@ -17,9 +17,9 @@ public class TraCuu implements Serializable {
     private String loaiVanBan;
     private String hanXlToanVanBan;
     private String yKienButPhe;
+    private int vbden_lc_id;
     private boolean trangThaiXuLy;
-
-
+    private int idCoQuan;
 
     public TraCuu(String maVB, String noiDungTrichYeu, String coQuan, String ngayBanHanh) {
         this.maVB = maVB;
@@ -40,6 +40,46 @@ public class TraCuu implements Serializable {
         this.hanXlToanVanBan = hanXlToanVanBan;
         this.yKienButPhe = yKienButPhe;
         this.trangThaiXuLy = trangThaiXuLy;
+    }
+
+//    public TraCuu(int vanBanDenId, String maVB, String noiDungTrichYeu, String coQuan, String ngayBanHanh, String ngayHieuLuc, String nguoiGui, String loaiVanBan, String hanXlToanVanBan, String yKienButPhe, int vbden_lc_id, boolean trangThaiXuLy) {
+//        this.vanBanDenId = vanBanDenId;
+//        this.maVB = maVB;
+//        this.noiDungTrichYeu = noiDungTrichYeu;
+//        this.coQuan = coQuan;
+//        this.ngayBanHanh = ngayBanHanh;
+//        this.ngayHieuLuc = ngayHieuLuc;
+//        this.nguoiGui = nguoiGui;
+//        this.loaiVanBan = loaiVanBan;
+//        this.hanXlToanVanBan = hanXlToanVanBan;
+//        this.yKienButPhe = yKienButPhe;
+//        this.vbden_lc_id = vbden_lc_id;
+//        this.trangThaiXuLy = trangThaiXuLy;
+//    }
+
+
+    public TraCuu(int vanBanDenId, String maVB, String noiDungTrichYeu, String coQuan, String ngayBanHanh, String ngayHieuLuc, String nguoiGui, String loaiVanBan, String hanXlToanVanBan, String yKienButPhe, int vbden_lc_id, boolean trangThaiXuLy, int idCoQuan) {
+        this.vanBanDenId = vanBanDenId;
+        this.maVB = maVB;
+        this.noiDungTrichYeu = noiDungTrichYeu;
+        this.coQuan = coQuan;
+        this.ngayBanHanh = ngayBanHanh;
+        this.ngayHieuLuc = ngayHieuLuc;
+        this.nguoiGui = nguoiGui;
+        this.loaiVanBan = loaiVanBan;
+        this.hanXlToanVanBan = hanXlToanVanBan;
+        this.yKienButPhe = yKienButPhe;
+        this.vbden_lc_id = vbden_lc_id;
+        this.trangThaiXuLy = trangThaiXuLy;
+        this.idCoQuan = idCoQuan;
+    }
+
+    public int getIdCoQuan() {
+        return idCoQuan;
+    }
+
+    public void setIdCoQuan(int idCoQuan) {
+        this.idCoQuan = idCoQuan;
     }
 
     public int getVanBanDenId() {
@@ -128,5 +168,13 @@ public class TraCuu implements Serializable {
 
     public void setTrangThaiXuLy(boolean trangThaiXuLy) {
         this.trangThaiXuLy = trangThaiXuLy;
+    }
+
+    public int getVbden_lc_id() {
+        return vbden_lc_id;
+    }
+
+    public void setVbden_lc_id(int vbden_lc_id) {
+        this.vbden_lc_id = vbden_lc_id;
     }
 }

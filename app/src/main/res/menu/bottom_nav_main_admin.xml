@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+    <item android:id="@+id/danhSachVB"
+        android:icon="@drawable/test"
+        android:title="Văn bản đến chưa xử lý"
+        app:showAsAction="always"
+        />
+    <item android:id="@+id/traCuu"
+        android:enabled="true"
+        android:title="Văn bản đến đã xử lý"
+        android:icon="@drawable/test"
+        app:showAsAction="always"
+        />
+    <item android:id="@+id/bieuDoUser"
+        android:enabled="true"
+        android:title="Thống kê văn bản"
+        android:icon="@drawable/pie_chart"
+        app:showAsAction="always"
+        />
+    <item android:id="@+id/bieuDoTong"
+        android:enabled="true"
+        android:title="Thống kê tổng"
+        android:icon="@drawable/pie_chart"
+        app:showAsAction="always"
+        />
+    <item android:id="@+id/info"
+        android:enabled="true"
+        android:title="About"
+        android:icon="@drawable/about"
+        app:showAsAction="always"
+        />
+</menu>

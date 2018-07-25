@@ -70,8 +70,6 @@ public class FragmentChuyenXuLy extends Fragment {
         view = inflater.inflate(R.layout.fragment_chuyenxyly, container, false);
         AnhXa();
 
-        //Toast.makeText(getActivity(), MainActivity.userName, Toast.LENGTH_SHORT).show();
-
         activity = (DanhSachVBActivity) getActivity();
         position = activity.getPosition();
         a = activity.getArray();
@@ -79,12 +77,9 @@ public class FragmentChuyenXuLy extends Fragment {
         listUser = activity.getUsers();
 
 
-
-        //danhSachNhanDaChon = new ArrayList<NguoiNhan>();
         txtUserNhanLuanChuyen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //dialogNguoiNhan();
                 Intent intent = new Intent(getActivity(), DanhSachUserActivity.class);
                 startActivityForResult(intent,1000);
             }
@@ -102,18 +97,12 @@ public class FragmentChuyenXuLy extends Fragment {
             }
         });
 
-
-        //postChuyenXuLy();
-        //Toast.makeText(getActivity(), res, Toast.LENGTH_SHORT).show();
         nhanArrayList = getNguoiNhan(false);
-        //Intent intent = getActivity().getIntent();
-        //onActivityResult(0,1000, intent);
-        //Toast.makeText(getActivity(), intent.getStringExtra("jsonUser").toString(), Toast.LENGTH_SHORT).show();
         btnLuanChuyen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (res==null | edtNoiDungLuanChuyen.length()==0 | edtButPheLuanChuyen.length()==0){
-                    //Toast.makeText(getActivity(), "Vui lòng nhập đủ thông tin luân chuyển!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Vui lòng nhập đủ thông tin luân chuyển!", Toast.LENGTH_SHORT).show();
                 }else if (activity.isConnected()==false){
                     activity.checkConnection();
                 }
@@ -162,11 +151,11 @@ public class FragmentChuyenXuLy extends Fragment {
 
                             }
                         });
-                        Toast.makeText(getActivity(), "Luân chuyển thành công", Toast.LENGTH_SHORT).show();
                         thread.start();
+                        Toast.makeText(getActivity(), "Luân chuyển thành công", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(getActivity(), MainActivity.class);
                         intent.putExtra("result", "OK");
-                        getActivity().setResult(1000,intent);
+                        getActivity().setResult(2000,intent);
                         getActivity().finish();
                     }else {
                         activity.checkConnection();
@@ -202,120 +191,6 @@ public class FragmentChuyenXuLy extends Fragment {
         
     }
 
-//    private void dialogNguoiNhan(){
-//        final Dialog dialog = new Dialog(getActivity());
-//        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-//        dialog.setCanceledOnTouchOutside(false);
-//
-//        dialog.setContentView(R.layout.dialog_reciever_layout);
-//        final ListView listView = (ListView) dialog.findViewById(R.id.listDanhSachNguoiNhan);
-//        CheckBox checkBoxAll = (CheckBox) dialog.findViewById(R.id.checkboxAllNguoiNhan);
-//        Button btnOk = dialog.findViewById(R.id.buttonOk);
-//        Button btnHuy = dialog.findViewById(R.id.buttonHuy);
-//
-//        btnHuy.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                dialog.dismiss();
-//            }
-//        });
-//
-//
-//        //SET DEFAULT UNCHECKED
-//        nhanArrayList = getNguoiNhan(false);
-//
-//        NguoiNhanAdapter adapter = new NguoiNhanAdapter(getActivity(),nhanArrayList);
-//        listView.setAdapter(adapter);
-//
-//        checkBoxAll.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-//                //IF CHECKBOX IS CHECKED
-//                if (isChecked){
-//                    nhanArrayList = getNguoiNhan(true);
-//                    NguoiNhanAdapter adapter = new NguoiNhanAdapter(getActivity(),nhanArrayList);
-//                    listView.setAdapter(adapter);
-//
-//                }
-//                //CHECKBOX IS NOT CHECKED
-//                else {
-//                    nhanArrayList = getNguoiNhan(false);
-//                    NguoiNhanAdapter adapter = new NguoiNhanAdapter(getActivity(),nhanArrayList);
-//                    listView.setAdapter(adapter);
-//                }
-//            }
-//        });
-//        btnOk.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                danhSachNhanDaChon.clear();
-//                AlertDialog.Builder dialog1 = new AlertDialog.Builder(getActivity());
-//                dialog1.setMessage("Vui lòng chọn người nhận luân chuyển");
-//                dialog1.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialogInterface, int i) {
-//
-//                    }
-//                });
-//                AlertDialog dialog2 = dialog1.create();
-//
-//                for (int i=0;i< list.size();i++){
-//
-//                    if (getNguoiNhan(false).get(i).isSeleted()==false) {
-//                        //Toast.makeText(getActivity(), "Vui lòng chọn người nhận luân chuyển", Toast.LENGTH_SHORT).show();
-//                        dialog2.show();
-//                        break;
-//                    }
-//
-//                }
-//
-//
-//                    //Lay danh sach nguoi da checked
-//                    for (int i=0;i< nhanArrayList.size();i++){
-//                        if (nhanArrayList.get(i).isSeleted()){
-//                            dialog2.dismiss();
-//                            dialog.dismiss();
-//                            //Toast.makeText(getActivity(), nhanArrayList.get(i).getEmail(), Toast.LENGTH_SHORT).show();
-//                            //danhSachNhan.add(nhanArrayList.get(i).getEmail());
-//
-//
-//                            danhSachNhanDaChon.add(new NguoiNhan(nhanArrayList.get(i).getEmail()));
-//                            //Toast.makeText(, "", Toast.LENGTH_SHORT).show();
-//                            //Toast.makeText(getActivity(),danhSachNhanDaChon.get(0).getEmail(), Toast.LENGTH_SHORT).show();
-//
-//                        }
-//                    }
-//                jsonArrayDsUserIdDaChon = new JSONArray();
-//
-//                    for (int i=0;i<danhSachNhanDaChon.size();i++){
-//                        JSONObject js = new JSONObject();
-//                        //Set text max 2 dong
-//                        txtUserNhanLuanChuyen.setText("Đã chọn");
-//                        //txtUserNhanLuanChuyen.setMaxLines(2);
-//                        //txtUserNhanLuanChuyen.setEllipsize(TextUtils.TruncateAt.END);
-//                        //txtUserNhanLuanChuyen.append(danhSachNhanDaChon.get(i).getEmail() + " - ");
-//                        try {
-//                            js.put("user",danhSachNhanDaChon.get(i).getEmail());
-//                        } catch (JSONException e) {
-//                            e.printStackTrace();
-//                        }
-//                        jsonArrayDsUserIdDaChon.put(js);
-//
-//                    }
-//
-//                //Toast.makeText(getActivity(),jsonArrayDsUserIdDaChon.toString(), Toast.LENGTH_SHORT).show();
-//
-//
-//
-//
-//
-//            }
-//
-//        });
-//        dialog.show();
-//
-//    }
-
     private void postChuyenXuLy(){
 
         JSONObject jsonObject = new JSONObject();
@@ -324,9 +199,9 @@ public class FragmentChuyenXuLy extends Fragment {
             jsonObject.put("vbdenLcId",""+a.get(position).getVbden_lc_id());
             jsonObject.put("noiDungLuanChuyen",edtNoiDungLuanChuyen.getText().toString());
             jsonObject.put("butPheLuanChuyen",edtButPheLuanChuyen.getText().toString());
-            jsonObject.put("userId", listUser.get(0).getUserId());
+            jsonObject.put("userId", MainActivity.userId);
             jsonObject.put("hanXuLy",edtHanXyLy.getText().toString());
-            jsonObject.put("nguoiChuyen",listUser.get(0).getName());
+            jsonObject.put("nguoiChuyen",MainActivity.userName);
             jsonObject.put("dsNguoiNhan", jsUser);
             jsonObject.put("donViUser", a.get(position).getIdCoQuan()+"");
             //jsonObject.put("statusHoanThanh", daXL);

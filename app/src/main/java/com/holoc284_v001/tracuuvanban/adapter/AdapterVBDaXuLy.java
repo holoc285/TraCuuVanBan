@@ -4,7 +4,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.holoc284_v001.tracuuvanban.fragment.FragmentChuyenXuLy;
 import com.holoc284_v001.tracuuvanban.fragment.FragmentThongTinVanBan;
 import com.holoc284_v001.tracuuvanban.fragment.FragmentXuLyVanBan;
 
@@ -12,17 +11,17 @@ import com.holoc284_v001.tracuuvanban.fragment.FragmentXuLyVanBan;
  * Created by holoc on 8/5/2017.
  */
 
-public class MyAdapter extends FragmentStatePagerAdapter{
-    String ten[] = {"FragmentThongTinVanBan","Fragment 2", "Fragmment 3"};
+public class AdapterVBDaXuLy extends FragmentStatePagerAdapter{
+    String ten[] = {"Thông tin văn bản","Góp ý"};
     FragmentThongTinVanBan fragmentThongTinVanBan;
     FragmentXuLyVanBan fragmentXuLyVanBan;
-    FragmentChuyenXuLy fragmentChuyenXuLy;
+//    FragmentChuyenXuLy fragmentChuyenXuLy;
 
-    public MyAdapter(FragmentManager fm) {
+    public AdapterVBDaXuLy(FragmentManager fm) {
         super(fm);
         fragmentThongTinVanBan = new FragmentThongTinVanBan();
         fragmentXuLyVanBan = new FragmentXuLyVanBan();
-        fragmentChuyenXuLy = new FragmentChuyenXuLy();
+//        fragmentChuyenXuLy = new FragmentChuyenXuLy();
 
     }
 
@@ -33,8 +32,8 @@ public class MyAdapter extends FragmentStatePagerAdapter{
             return fragmentThongTinVanBan;
         }else if (position==1){
             return fragmentXuLyVanBan;
-        }else if (position==2){
-            return fragmentChuyenXuLy;
+//        }else if (position==2){
+//            return fragmentChuyenXuLy;
         }
         return null;
     }
@@ -50,14 +49,14 @@ public class MyAdapter extends FragmentStatePagerAdapter{
 
         switch (position){
             case 0:
-                title = "Thông tin văn bản";
+                title = ten[0];
                 break;
             case 1:
-                title = "Góp ý";
+                title = ten[1];
                 break;
-            case 2:
-                title = "Chuyển xử lý";
-                break;
+//            case 2:
+//                title = "Chuyển xử lý";
+//                break;
         }
         return title;
     }

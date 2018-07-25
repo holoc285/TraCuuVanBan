@@ -1,5 +1,6 @@
 package com.holoc284_v001.tracuuvanban.activity;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.holoc284_v001.tracuuvanban.R;
+import com.holoc284_v001.tracuuvanban.adapter.AdapterVBDaXuLy;
 import com.holoc284_v001.tracuuvanban.adapter.ConnectivityReceiver;
 import com.holoc284_v001.tracuuvanban.adapter.MyAdapter;
 import com.holoc284_v001.tracuuvanban.adapter.MyApplication;
@@ -27,31 +29,46 @@ public class DanhSachVBActivity extends AppCompatActivity implements Connectivit
         ViewPager viewPager;
         TabLayout tabLayout;
         public static String res;
+        ArrayList<TraCuu> a;
+        public static Context context;
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_danh_sach_vb);
-            initView();
+            context = getApplicationContext();
             getArray();
-
-            //FragmentThongTinVanBan fragmentThongTinVanBan = new FragmentThongTinVanBan();
-            //fragmentThongTinVanBan.setArguments(getIntent().getExtras());
+            if (a.get(getPosition()).isTrangThaiXuLy()){
+                //Van Ban Da Xu Ly
+                initViewDaXuLy();
+            }else {
+                initViewChuaXuLy();
+                //FragmentThongTinVanBan.txtTapTinDinhKem.setText("Loại văn bản: "+ a.get(getPosition()).getLoaiVanBan());
+            }
 
         }
-
-        private void initView() {
+        private void initViewChuaXuLy() {
             viewPager = (ViewPager) findViewById(R.id.viewPager);
             tabLayout = (TabLayout) findViewById(R.id.tabLayout);
             viewPager.setAdapter(new MyAdapter(getSupportFragmentManager()));
             tabLayout.setupWithViewPager(viewPager);
         }
+
+        private void initViewDaXuLy() {
+            viewPager = (ViewPager) findViewById(R.id.viewPager);
+            tabLayout = (TabLayout) findViewById(R.id.tabLayout);
+            viewPager.setAdapter(new AdapterVBDaXuLy(getSupportFragmentManager()));
+            tabLayout.setupWithViewPager(viewPager);
+        }
         public ArrayList<TraCuu> getArray(){
             Bundle bundle = getIntent().getExtras();
             //int i = bundle.getInt("ViTri");
-            ArrayList<TraCuu> a = (ArrayList) bundle.getSerializable("VanBan");
-            //Toast.makeText(DanhSachVBActivity.this,  a.get(i).getMaVB(), Toast.LENGTH_SHORT).show();
+            a = (ArrayList) bundle.getSerializable("VanBan");
+
             return a;
         }
+
+
+
         public int getPosition(){
             Bundle bundle = getIntent().getExtras();
             int i = bundle.getInt("ViTri");
